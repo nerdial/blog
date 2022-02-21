@@ -10,7 +10,12 @@ class CommentService
 
     public function getCommentsByPostId($postId): Collection
     {
-        return Comment::latest()->where('post_id' , $postId)->get();
+        return Comment::where('post_id', $postId)->latest('id')->get();
+    }
+
+    public function save(array $data): Comment
+    {
+        return Comment::create($data);
     }
 
 }
