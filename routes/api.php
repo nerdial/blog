@@ -23,7 +23,7 @@ Route::prefix('post')->group(function () {
     Route::controller(CommentController::class)->group(function () {
         Route::get('{postId}/comments', 'index')->name('api.comments.index')
             ->whereNumber('postId');
-        Route::post('{postId}/comments', 'index')->name('api.comments.create')
+        Route::post('{postId}/comments', 'create')->name('api.comments.create')
             ->whereNumber('postId');;
     });
 
