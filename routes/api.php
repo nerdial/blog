@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\PostController;
 use \App\Http\Controllers\Api\CommentController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,13 +15,16 @@ use \App\Http\Controllers\Api\CommentController;
 |
 */
 
-Route::prefix('post')->group(function(){
-    Route::controller(PostController::class)->group(function(){
-        Route::get('{id}')->name('api.post.show');
+Route::prefix('post')->group(function () {
+    Route::controller(PostController::class)->group(function () {
+        Route::get('{id}', 'show')->name('api.post.show')->whereNumber('id');
     });
 
-    Route::controller(CommentController::class)->group(function(){
-        Route::get('{postId}/comments', 'index')->name('api.comments.index');
+    Route::controller(CommentController::class)->group(function () {
+        Route::get('{postId}/comments', 'index')->name('api.comments.index')
+            ->whereNumber('postId');
+        Route::post('{postId}/comments', 'index')->name('api.comments.create')
+            ->whereNumber('postId');;
     });
 
 });
