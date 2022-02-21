@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Api\PostController;
-
+use \App\Http\Controllers\Api\CommentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,4 +14,16 @@ use \App\Http\Controllers\Api\PostController;
 |
 */
 
-Route::get('post/{id}', [PostController::class, 'show'])->name('api.post.show');
+Route::prefix('post')->group(function(){
+    Route::controller(PostController::class)->group(function(){
+        Route::get('{id}')->name('api.post.show');
+    });
+
+    Route::controller(CommentController::class)->group(function(){
+        Route::get('{postId}/comments', 'index')->name('api.comments.index');
+    });
+
+});
+
+
+
