@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Services\BlogService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -20,12 +21,16 @@ class PostTest extends TestCase
     {
         $postId = 1;
         $route = route('api.post.show', [$postId]);
+        $post = (new BlogService)->getPostById($postId);
         $response = $this->get($route);
         $response
             ->assertStatus(200)
             ->assertJsonStructure([
                 'data' => ['id', 'title', 'body']
             ])
-            ->assertJsonCount(3, 'data');
+            ->assertJsonCount(3, 'data')
+            ->assertJson([
+                'data' => $post
+            ]);
     }
 }
