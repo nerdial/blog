@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Blog App</div>
+                    <div class="card-header">Comments</div>
 
                     <div class="card-body">
                         <form>
