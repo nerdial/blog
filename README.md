@@ -3,7 +3,8 @@
 2. List of all comments for that single post order by latest
 3. User can create comments
 4. Nested comment up to 3 level supported
-5. Unit test for the apis
+5. Vue JS Front-end => /resources/js/components
+6. Unit test for the apis
 
 
 
@@ -25,17 +26,17 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-## Fake comments
 
-```console
-php artisan migrate --seed
-```
-
-
-## Otherwise, run only migrations
+## Run migrations
 
 ```console
 php artisan migrate
+```
+
+## Fake comments
+
+```console
+php artisan db:seed
 ```
 
 
