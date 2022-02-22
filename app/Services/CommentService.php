@@ -10,7 +10,7 @@ class CommentService
 
     public function getCommentsByPostId($postId): Collection
     {
-        return Comment::where('post_id', $postId)->latest('id')->get();
+        return Comment::where('post_id', $postId)->latest('id')->get()->toTree();
     }
 
     public function saveRoot(array $data): Comment
