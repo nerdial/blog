@@ -74,8 +74,10 @@ class CommentTest extends TestCase
 
     public function test_create_new_comment_with_parent_id()
     {
+        $parentComment = Comment::factory()->create();
+
         $comment = Comment::factory()->make([
-            'parent_id' => 1
+            'parent_id' => $parentComment->id
         ])->toArray();
 
         $route = route('api.comments.create', [
