@@ -13,9 +13,17 @@ class CommentService
         return Comment::where('post_id', $postId)->latest('id')->get();
     }
 
-    public function save(array $data): Comment
+    public function saveRoot(array $data): Comment
     {
         return Comment::create($data);
+    }
+
+    public function saveNode(string $parentId,array $data): Comment
+    {
+        $parent = Comment::find($parentId);
+        $newComment = Comment::create($data);
+        $parent->appendNode($newComment);
+        return $newComment;
     }
 
 }

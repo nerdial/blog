@@ -19,7 +19,8 @@ class CommentResource extends JsonResource
             'name' => $this->name,
             'body' => $this->body,
             'post_id' => (int) $this->post_id,
-            'parent_id' => $this->parent_id
+            'parent_id' => $this->parent_id,
+            'created'=> $this->created_at->diffForhumans()
         ];
     }
 }
