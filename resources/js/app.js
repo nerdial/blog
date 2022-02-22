@@ -23,7 +23,7 @@ import { ModalPlugin, FormPlugin } from 'bootstrap-vue'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(ModalPlugin)
 Vue.use(FormPlugin)
-
+Vue.use(require('vue-moment'));
 
 Vue.component('blog-component', require('./components/BlogComponent').default);
 

@@ -77,12 +77,17 @@ export default {
                 return
             }
 
-            const url = `api/post/${this.postId}/comments`
-            const {data} = await axios.post(url, {
+            const requestData = {
                 name: this.name,
                 body: this.body,
-                parent_id : this.parentId
-            })
+            }
+
+            if (this.parentId) {
+                requestData.parent_id = this.parentId
+            }
+
+            const url = `api/post/${this.postId}/comments`
+            const {data} = await axios.post(url, requestData)
             const comment = data.data
             this.resetModal()
             this.$emit('formSubmitted', comment)

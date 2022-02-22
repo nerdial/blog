@@ -17,12 +17,6 @@ class Comment extends Model
         'post_id' , 'name' , 'body', 'parent_id'
     ];
 
-    protected function CreatedAt(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => $value,
-        );
-    }
 
 
 }

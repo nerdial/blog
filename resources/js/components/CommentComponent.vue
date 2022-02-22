@@ -19,7 +19,7 @@ export default {
     data() {
         return {
             comments: null,
-            createdComment: null,
+            newlyCreatedComment: null,
             parentId: null
         }
     },
@@ -28,24 +28,29 @@ export default {
     },
     updated() {
         this.$nextTick(function () {
-            if (this.createdComment) {
-                const commentId = `comment-${this.createdComment.id}`
+            if (this.newlyCreatedComment) {
+                const commentId = `comment-${this.newlyCreatedComment.id}`
                 document.getElementById(commentId).scrollIntoView({
                     behavior: 'smooth'
                 });
-                this.createdComment = null
+                this.newlyCreatedComment = null
+                this.parentId = null
             }
         })
     },
     methods: {
         formSubmitted(comment) {
-            this.createdComment = comment
+            this.newlyCreatedComment = comment
             this.getComments()
             this.$bvModal.hide('comment-modal')
+
         },
         replyButtonClicked(parentId) {
             this.parentId = parentId
             this.$bvModal.show('comment-modal')
+        },
+        removeParentId(){
+            this.parentId = null
         },
         async getComments() {
             const url = `api/post/${this.postId}/comments`
