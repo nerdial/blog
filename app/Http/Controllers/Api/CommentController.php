@@ -18,16 +18,21 @@ class CommentController extends Controller
         $this->commentService = $commentService;
     }
 
-    public function index(string $postId) :ResourceCollection
+    public function index(string $postId): ResourceCollection
     {
         $comments = $this->commentService->getCommentsByPostId($postId);
         return CommentResource::collection($comments);
     }
 
-    public function create(string $postId, CommentRequest $request) :CommentResource
+    public function create(string $postId, CommentRequest $request): CommentResource
     {
         $data = $request->validated() + ['post_id' => $postId];
-        $comment = $this->commentService->save($data);
+
+        if ($request->has('parent_id')) {
+            $comment = $this->commentService->saveNode($request->get('parent_id'), $data);
+        } else {
+            $comment = $this->commentService->saveRoot($data);
+        }
 
         return new CommentResource($comment);
     }

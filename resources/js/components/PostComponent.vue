@@ -1,12 +1,14 @@
 <template>
-    <div v-if="title" class="container">
+    <div class="container" id="vahid">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">{{title}}</div>
+                    <h3 style="margin: 20px"><b>{{ post.title }}</b>
+                        <hr>
+                    </h3>
 
-                    <div class="card-body">
-                        {{body}}
+                    <div v-html="post.body" style="margin: 20px" class="card-body">
+
                     </div>
                 </div>
             </div>
@@ -15,20 +17,8 @@
 </template>
 
 <script>
-    export default {
-        data(){
-          return {
-              title : null,
-              body : null
-          }
-        },
-        mounted() {
 
-            axios.get('api/post/1').then(({data})=> {
-                this.title = data.data.title
-                this.body = data.data.body
-            })
-
-        }
-    }
+export default {
+    props: ['post']
+}
 </script>
