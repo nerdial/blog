@@ -9,15 +9,13 @@ class BlogService
     {
         return [
             'id' => (int)$id,
-            'title' => 'What is Lorem Ipsum?',
-            'body' => "Lorem Ipsum is simply dummy text of
-                 the printing and typesetting industry. Lorem Ipsum has been the industry's
-                 standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-                 scrambled it to make a type specimen book. It has survived not only five centuries,
-                 but also the leap into electronic typesetting, remaining essentially unchanged.
-                 It was popularised in the 1960s with the release of Letraset sheets containing
-                 Lorem Ipsum passages, and more recently with desktop publishing
-                 software like Aldus PageMaker including versions of Lorem Ipsum."
+            'title' => "Dubai airport is busiest for global travel as virus persists",
+            'body' => "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. </p>
+
+<p>Sed dignissim lacinia nunc. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. <i>Lorem ipsum dolor sit amet, consectetur adipiscing elit</i>. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. <b>Aenean quam</b>. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. </p>
+
+<p>Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante. Sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi. Ut fringilla. Suspendisse potenti. Nunc feugiat mi a tellus consequat imperdiet. Vestibulum sapien. Proin quam. Etiam ultrices. <b>Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh</b>. Suspendisse in justo eu magna luctus suscipit. </p>
+"
         ];
     }
 
