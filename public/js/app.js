@@ -5496,25 +5496,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 
 Vue.component('b-form-group', bootstrap_vue__WEBPACK_IMPORTED_MODULE_1__.BFormGroup);
 Vue.component('b-form-input', bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__.BFormInput);
 Vue.component('b-form-textarea', bootstrap_vue__WEBPACK_IMPORTED_MODULE_3__.BFormTextarea);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['postId', 'parentId'],
+  watch: {
+    parentId: function parentId(newVal, oldVal) {
+      this.currentParentId = newVal;
+    }
+  },
   data: function data() {
     return {
       name: '',
       nameState: null,
       body: '',
-      bodyState: null
+      bodyState: null,
+      currentParentId: this.parentId
     };
   },
   methods: {
     checkFormValidity: function checkFormValidity() {
       var valid = this.$refs.form.checkValidity();
-      this.nameState = valid;
-      this.bodyState = valid;
+      this.nameState = !!this.name.length;
+      this.bodyState = !!this.body.length;
       return valid;
     },
     resetModal: function resetModal() {
@@ -5522,6 +5533,7 @@ Vue.component('b-form-textarea', bootstrap_vue__WEBPACK_IMPORTED_MODULE_3__.BFor
       this.nameState = null;
       this.body = '';
       this.bodyState = null;
+      this.$emit('removeParentId');
     },
     handleOk: function handleOk(bvModalEvt) {
       // Prevent modal from closing
@@ -5552,8 +5564,8 @@ Vue.component('b-form-textarea', bootstrap_vue__WEBPACK_IMPORTED_MODULE_3__.BFor
                   body: _this.body
                 };
 
-                if (_this.parentId) {
-                  requestData.parent_id = _this.parentId;
+                if (_this.currentParentId) {
+                  requestData.parent_id = _this.currentParentId;
                 }
 
                 url = "api/post/".concat(_this.postId, "/comments");
@@ -5727,11 +5739,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.$nextTick(function () {
       if (this.newlyCreatedComment) {
         var commentId = "comment-".concat(this.newlyCreatedComment.id);
-        document.getElementById(commentId).scrollIntoView({
-          behavior: 'smooth'
-        });
+        var commentObject = document.getElementById(commentId);
+
+        if (commentObject) {
+          document.getElementById(commentId).scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+
         this.newlyCreatedComment = null;
-        this.parentId = null;
+        this.removeParentId();
       }
     });
   },
@@ -38992,7 +39009,7 @@ var render = function () {
         title: "Leave your comment",
         "ok-title": "Submit",
       },
-      on: { ok: _vm.handleOk },
+      on: { hidden: _vm.resetModal, ok: _vm.handleOk },
     },
     [
       _c(
@@ -39022,6 +39039,7 @@ var render = function () {
               _c("b-form-input", {
                 attrs: {
                   id: "name-input",
+                  maxlength: 50,
                   state: _vm.nameState,
                   placeholder: "Your Name",
                   required: "",
@@ -39055,6 +39073,7 @@ var render = function () {
                   placeholder: "Your comment",
                   rows: "3",
                   "max-rows": "6",
+                  required: "",
                 },
                 model: {
                   value: _vm.body,
@@ -39271,7 +39290,10 @@ var render = function () {
       _vm._v(" "),
       _c("form-component", {
         attrs: { "post-id": _vm.postId, "parent-id": _vm.parentId },
-        on: { formSubmitted: _vm.formSubmitted },
+        on: {
+          formSubmitted: _vm.formSubmitted,
+          removeParentId: _vm.removeParentId,
+        },
       }),
     ],
     1

@@ -1,5 +1,8 @@
 <template>
-    <b-modal id="comment-modal" title="Leave your comment" ok-title="Submit" @ok="handleOk">
+    <b-modal id="comment-modal" title="Leave your comment" ok-title="Submit"
+
+             @hidden="resetModal"
+             @ok="handleOk">
         <form ref="form" @submit.stop.prevent="handleSubmit">
             <b-form-group
                 label="Name"
@@ -9,6 +12,7 @@
             >
                 <b-form-input
                     id="name-input"
+                    :maxlength="50"
                     v-model="name"
                     :state="nameState"
                     placeholder="Your Name"
@@ -28,6 +32,7 @@
                     placeholder="Your comment"
                     rows="3"
                     max-rows="6"
+                    required
                 ></b-form-textarea>
             </b-form-group>
 
@@ -44,19 +49,25 @@ Vue.component('b-form-textarea', BFormTextarea)
 
 export default {
     props: ['postId', 'parentId'],
+    watch: {
+        parentId: function (newVal, oldVal) {
+            this.currentParentId = newVal
+        },
+    },
     data() {
         return {
             name: '',
             nameState: null,
             body: '',
             bodyState: null,
+            currentParentId: this.parentId
         }
     },
     methods: {
         checkFormValidity() {
             const valid = this.$refs.form.checkValidity()
-            this.nameState = valid
-            this.bodyState = valid
+            this.nameState = !!(this.name.length)
+            this.bodyState = !!(this.body.length)
             return valid
         },
         resetModal() {
@@ -64,6 +75,7 @@ export default {
             this.nameState = null
             this.body = ''
             this.bodyState = null
+            this.$emit('removeParentId')
         },
         handleOk(bvModalEvt) {
             // Prevent modal from closing
@@ -82,8 +94,8 @@ export default {
                 body: this.body,
             }
 
-            if (this.parentId) {
-                requestData.parent_id = this.parentId
+            if (this.currentParentId) {
+                requestData.parent_id = this.currentParentId
             }
 
             const url = `api/post/${this.postId}/comments`

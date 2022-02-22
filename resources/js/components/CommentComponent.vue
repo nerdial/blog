@@ -1,7 +1,7 @@
 <template>
     <div>
         <list-component @replyButtonClicked="replyButtonClicked" :comments="comments"></list-component>
-        <form-component @formSubmitted="formSubmitted"
+        <form-component @formSubmitted="formSubmitted" @removeParentId="removeParentId"
                         :post-id="postId" :parent-id="parentId"></form-component>
     </div>
 </template>
@@ -30,11 +30,15 @@ export default {
         this.$nextTick(function () {
             if (this.newlyCreatedComment) {
                 const commentId = `comment-${this.newlyCreatedComment.id}`
-                document.getElementById(commentId).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const commentObject = document.getElementById(commentId)
+
+                if (commentObject) {
+                    document.getElementById(commentId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
                 this.newlyCreatedComment = null
-                this.parentId = null
+                this.removeParentId()
             }
         })
     },
@@ -49,7 +53,7 @@ export default {
             this.parentId = parentId
             this.$bvModal.show('comment-modal')
         },
-        removeParentId(){
+        removeParentId() {
             this.parentId = null
         },
         async getComments() {
