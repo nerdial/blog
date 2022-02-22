@@ -4,7 +4,7 @@
         <div class="col-md-10">
             <div class="card">
                 <div class="card-header"><b>{{ comment.name }} </b>
-                    <label style="color:blue;float: right"> {{ comment.created_at }} </label>
+                    <label style="color:blue;float: right"> {{ comment.created_at | moment("YYYY/MM/DD - h:mm a") }} </label>
                 </div>
                 <div class="card-body">
                     {{ comment.body }}
