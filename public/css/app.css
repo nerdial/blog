@@ -11286,3 +11286,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  background-color: #2380bf;
+}
+
+html {
+  scroll-behavior: smooth;
+}
