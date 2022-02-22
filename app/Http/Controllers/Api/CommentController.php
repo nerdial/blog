@@ -26,7 +26,8 @@ class CommentController extends Controller
 
     public function create(string $postId, CommentRequest $request): CommentResource
     {
-        $data = $request->validated() + ['post_id' => $postId];
+        $requestData  = $request->validated() + ['post_id' => $postId];
+        $data = $this->commentService->prepareData($requestData);
 
         if ($request->has('parent_id')) {
             $comment = $this->commentService->saveNode($request->get('parent_id'), $data);
