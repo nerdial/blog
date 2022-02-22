@@ -5662,6 +5662,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['comment', 'level'],
   name: 'subList',
@@ -39173,7 +39174,6 @@ var render = function () {
         "margin-top": "10px",
         "margin-bottom": "10px  !important",
       },
-      attrs: { id: "comment-" + _vm.comment.id },
     },
     [
       _c("div", { staticClass: "col-md-10" }, [
@@ -39233,6 +39233,8 @@ var render = function () {
           2
         ),
       ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "comment-" + _vm.comment.id } }),
     ]
   )
 }

@@ -1,5 +1,5 @@
 <template>
-    <div :id="`comment-${comment.id}`" class="row justify-content-center"
+    <div class="row justify-content-center"
          style="margin-top: 10px;margin-bottom:10px  !important;">
         <div class="col-md-10">
             <div class="card">
@@ -15,6 +15,7 @@
                 <subList @replyButtonClicked="replyComment" :level="level + 1" :key="item.id" v-for="item in comment.children" :comment="item"></subList>
             </div>
         </div>
+        <div :id="`comment-${comment.id}`"></div>
     </div>
 </template>
 

@@ -24,9 +24,9 @@ class CommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2',
-            'body' => 'required|min:3',
-            'parent_id' => 'numeric'
+            'name' => 'required|min:1',
+            'body' => 'required|min:1',
+            'parent_id' => 'numeric|exists:comments'
         ];
     }
 }
