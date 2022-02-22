@@ -18,8 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->integer('post_id');
             $table->text('body')->nullable();
-            $table->integer('parent_id')->nullable();
+          //  $table->integer('parent_id')->nullable();
             $table->timestamps();
+            $table->nestedSet();
         });
     }
 
