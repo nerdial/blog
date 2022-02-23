@@ -17,8 +17,7 @@ export default {
     data() {
         return {
             postId: 1,
-            post: null,
-            comments: null
+            post: null
         }
     },
     async mounted() {
