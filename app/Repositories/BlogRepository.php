@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services;
+namespace App\Repositories;
 
-class BlogService
+class BlogRepository
 {
 
     public function getPostById($id): array

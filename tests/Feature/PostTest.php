@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Repositories\BlogRepository;
 use App\Services\BlogService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,7 +22,7 @@ class PostTest extends TestCase
     {
         $postId = 1;
         $route = route('api.post.show', [$postId]);
-        $post = (new BlogService)->getPostById($postId);
+        $post = (new BlogRepository())->getPostById($postId);
         $response = $this->get($route);
         $response
             ->assertStatus(200)
