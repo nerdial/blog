@@ -5,23 +5,19 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
-use App\Repositories\CommentRepository;
 use App\Services\CommentService;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CommentController extends Controller
 {
 
-    public function __construct(
-        private CommentService    $commentService,
-        private CommentRepository $commentRepository
-    )
+    public function __construct(private CommentService $commentService)
     {
     }
 
     public function index(string $postId): ResourceCollection
     {
-        $comments = $this->commentRepository->getCommentsByPostId($postId);
+        $comments = $this->commentService->getCommentsByPost($postId);
         return CommentResource::collection($comments);
     }
 
@@ -29,12 +25,8 @@ class CommentController extends Controller
     {
         $requestData = $request->validated() + ['post_id' => $postId];
         $data = $this->commentService->prepareData($requestData);
-
-        if ($request->has('parent_id')) {
-            $comment = $this->commentRepository->saveNode($request->get('parent_id'), $data);
-        } else {
-            $comment = $this->commentRepository->saveRoot($data);
-        }
+        $comment = $this->commentService
+            ->createComment($data, $request->get('parent_id'));
 
         return new CommentResource($comment);
     }
